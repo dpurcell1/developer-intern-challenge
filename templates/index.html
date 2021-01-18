@@ -1,0 +1,23 @@
+<strong>Shopify Developer Intern Challenge: Image Repository</strong>
+<br><br>
+
+{% if user.is_authenticated %}
+
+    Welcome, <a href='/profile/{{ user.id }}'>{{ request.user }}</a>.
+    <br><br>
+    Upload a file <a href='/upload/'>here</a>.
+    <br><br><br>
+     Your uploaded images:
+    <ul>
+        {% for image in images %}
+            {% if image.author_id == request.user.id %}           
+                <li><a href='/static/images/{{ image.upload }}'>{{image.upload}}</a></li>
+            {% endif%}           
+        {% endfor %}
+    </ul>
+    <a href='/logout/'>Log out</a>
+{% else %}
+    <a href='/login/'>Log in</a>
+    <br><br>
+    Not registered? <a href='/sign_up/'>Create an account</a>
+{% endif %}
