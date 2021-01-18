@@ -8,6 +8,7 @@ django = "*"
 django-filebrowser = "*"
 django-grappelli = "*"
 pillow = "*"
+django-environ = "*"
 
 [dev-packages]
 

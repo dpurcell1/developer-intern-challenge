@@ -2,12 +2,20 @@
 <br>
 <a href='mailto:{{user.email}}'>{{ user.email}}</a>
 
-<ul>
-{% for image in images %}
-    <li>{{ image }}</li>
-{% endfor %}
-</ul>
+<br><br>
 
-<br>
+{% if images %}
+    Your uploaded images:
+        <ul>
+            {% for image in images %}
+                {% if image.author_id == request.user.id %}           
+                    <li><a href='/static/images/{{ image.upload }}'>{{image.upload}}</a></li>
+                {% endif%}           
+            {% endfor %}
+        </ul>
+{% endif %}
+
 
 <a href='/'>Home</a>
+<br><br>
+<a href='/logout/'>Log out</a>

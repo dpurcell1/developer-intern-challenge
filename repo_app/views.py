@@ -1,17 +1,15 @@
 from django.shortcuts import render, reverse, HttpResponseRedirect, redirect
 from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin 
 from repo_app.models import MyUser, Image
 from repo_app.forms import SignUpForm, UploadForm, LoginForm
 
 class Index(View):
     def get(self, request):
         html = 'index.html'
-        images = list(Image.objects.all().values())
-        
-        # for file in images:
-        #     print(file[1])
+        images = list(Image.objects.all().values())       
         context = {'images': images}
         return render(request, html, context)
 
@@ -61,6 +59,7 @@ class SignUp(View):
                 login(request, new_user)
                 return HttpResponseRedirect(reverse('success'))
 
+@login_required
 def success(request):
     html = 'success.html'
     return render(request, html)
@@ -86,8 +85,7 @@ class Login_View(View):
                 login(request, user)
                 return HttpResponseRedirect(request.GET.get("next", reverse("home")))
             else:
-                return redirect('/login/')
-                
+                return redirect('/login/')                
 
 
 class Profile(View, LoginRequiredMixin):

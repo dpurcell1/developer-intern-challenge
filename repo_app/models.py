@@ -9,4 +9,7 @@ class MyUser(AbstractUser):
 
 class Image(models.Model):
     upload = models.ImageField(null=True, blank='True')
-    author = models.OneToOneField(MyUser, null=True, blank=True, on_delete=models.CASCADE)
+    author = models.ForeignKey(MyUser, null=True, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.upload

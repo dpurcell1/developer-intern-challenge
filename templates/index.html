@@ -6,15 +6,17 @@
     Welcome, <a href='/profile/{{ user.id }}'>{{ request.user }}</a>.
     <br><br>
     Upload a file <a href='/upload/'>here</a>.
-    <br><br><br>
-     Your uploaded images:
-    <ul>
-        {% for image in images %}
-            {% if image.author_id == request.user.id %}           
-                <li><a href='/static/images/{{ image.upload }}'>{{image.upload}}</a></li>
-            {% endif%}           
-        {% endfor %}
-    </ul>
+    <br><br>
+    {% if images %}
+        Your uploaded images:
+        <ul>
+            {% for image in images %}
+                {% if image.author_id == request.user.id %}           
+                    <li><a href='/static/images/{{ image.upload }}'>{{image.upload}}</a></li>
+                {% endif%}           
+            {% endfor %}
+        </ul>
+    {% endif %}
     <a href='/logout/'>Log out</a>
 {% else %}
     <a href='/login/'>Log in</a>
